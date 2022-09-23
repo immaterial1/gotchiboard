@@ -5,7 +5,7 @@
         <option>Total address spend</option>
       </select>
     </div>
-    <div class="flex justify-between mb-4">
+    <div class="flex justify-between mb-2">
       <select
         class="form-select"
         :disabled="loading"
@@ -23,7 +23,35 @@
       </select>
     </div>
     <div class="relative">
-      <div v-if="loading" class="absolute inset-0 w-full h-full opacity-80 bg-white flex justify-center pt-4 text-4xl">Loading...</div>
+      <div v-if="loading" class="absolute inset-0 w-full h-full opacity-80 bg-white flex justify-center pt-16 text-4xl">Loading...</div>
+      <h3 class="text-center underline text-3xl mb-4">Stats</h3>
+      <table class="table-auto border-collapse border-2 w-full leading-none text-xl mb-6">
+        <thead>
+          <tr>
+            <th class="border-2 px-4 py-2">Total Addresses</th>
+            <th class="border-2 px-4 py-2">Total Tiles Minted</th>
+            <th class="border-2 px-4 py-2">Total Installations Minted</th>
+            <th class="border-2 px-4 py-2">Total Fud Spent</th>
+            <th class="border-2 px-4 py-2">Total Fomo Spent</th>
+            <th class="border-2 px-4 py-2">Total Alpha Spent</th>
+            <th class="border-2 px-4 py-2">Total Kek Spent</th>
+            <th class="border-2 px-4 py-2">Total Spent (in Fud)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border-2 px-4 py-2">{{ tableData.length }}</td>
+            <td class="border-2 px-4 py-2">{{ tableDataTotals.tilesMinted.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ tableDataTotals.installationsMinted.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ tableDataTotals.totalFud.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ tableDataTotals.totalFomo.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ tableDataTotals.totalAlpha.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ tableDataTotals.totalKek.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ tableDataTotals.fudStandardSpent.toLocaleString() }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3 class="text-center underline text-3xl mb-4">Leaderboard</h3>
       <table class="table-auto border-collapse border-2 w-full leading-none text-xl">
         <thead>
           <tr>
@@ -35,7 +63,7 @@
             <th class="border-2 px-4 py-2">Fomo Spent</th>
             <th class="border-2 px-4 py-2">Alpha Spent</th>
             <th class="border-2 px-4 py-2">Kek Spent</th>
-            <th class="border-2 px-4 py-2">Total Spent (in FUD)</th>
+            <th class="border-2 px-4 py-2">Total Spent (in Fud)</th>
           </tr>
         </thead>
         <tbody>
@@ -43,18 +71,19 @@
             <td class="border-2 px-4 py-2">{{ i + 1 }}</td>
             <td class="border-2 px-4 py-2">
               <a
-                class="hover:text-violet-700 hover:underline visited:text-purple-700"
+                class="text-fuchsia-700 underline hover:text-violet-700
+                visited:text-violet-700"
                 :href="`https://fireball.gg/client/${address.address}/gotchis`"
                 target="_blank">
                 {{ address.address.slice(0, 4).toUpperCase() + '...' + address.address.slice(-4).toUpperCase() }}</a>
             </td>
-            <td class="border-2 px-4 py-2">{{ address.tilesMinted }}</td>
-            <td class="border-2 px-4 py-2">{{ address.installationsMinted }}</td>
-            <td class="border-2 px-4 py-2">{{ address.totalFud }}</td>
-            <td class="border-2 px-4 py-2">{{ address.totalFomo }}</td>
-            <td class="border-2 px-4 py-2">{{ address.totalAlpha }}</td>
-            <td class="border-2 px-4 py-2">{{ address.totalKek }}</td>
-            <td class="border-2 px-4 py-2">{{ address.fudStandardSpent }}</td>
+            <td class="border-2 px-4 py-2">{{ address.tilesMinted.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ address.installationsMinted.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ address.totalFud.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ address.totalFomo.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ address.totalAlpha.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ address.totalKek.toLocaleString() }}</td>
+            <td class="border-2 px-4 py-2">{{ address.fudStandardSpent.toLocaleString() }}</td>
           </tr>
         </tbody>
       </table>
@@ -82,6 +111,21 @@ export default {
           ...this.$store.state.addressSpendData[address]
         }
       }).sort((a, b) => b.fudStandardSpent - a.fudStandardSpent)
+    },
+    tableDataTotals () {
+      const totals = {}
+      this.tableData.forEach(row => {
+        Object.keys(row).forEach(key => {
+          if (!isNaN(row[key])) {
+            if (totals[key]) {
+              totals[key] += row[key]
+            } else {
+              totals[key] = row[key]
+            }
+          }
+        })
+      })
+      return totals
     },
     timeFromOptions () {
       const options = []
