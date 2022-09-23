@@ -41,7 +41,13 @@
         <tbody>
           <tr v-for="(address, i) in tableData" :key="address.address">
             <td class="border-2 px-4 py-2">{{ i + 1 }}</td>
-            <td class="border-2 px-4 py-2">{{ address.address.slice(0, 4).toUpperCase() + '...' + address.address.slice(-4).toUpperCase() }}</td>
+            <td class="border-2 px-4 py-2">
+              <a
+                class="hover:text-violet-700 hover:underline visited:text-purple-700"
+                :href="`https://fireball.gg/client/${address.address}/gotchis`"
+                target="_blank">
+                {{ address.address.slice(0, 4).toUpperCase() + '...' + address.address.slice(-4).toUpperCase() }}</a>
+            </td>
             <td class="border-2 px-4 py-2">{{ address.tilesMinted }}</td>
             <td class="border-2 px-4 py-2">{{ address.installationsMinted }}</td>
             <td class="border-2 px-4 py-2">{{ address.totalFud }}</td>
