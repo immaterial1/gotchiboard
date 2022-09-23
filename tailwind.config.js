@@ -351,7 +351,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
-        'PixelarRegularW01-Regular',
+        'Pixelar',
         'ui-sans-serif',
         'system-ui',
         '-apple-system',
