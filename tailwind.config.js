@@ -7,7 +7,7 @@ module.exports = {
     screens: {
       sm: '640px',
       md: '768px',
-      lg: '1024px',
+      lg: '949px',
       xl: '1280px',
       '2xl': '1536px'
     },
@@ -29,13 +29,13 @@ module.exports = {
       lime: colors.lime,
       green: colors.green,
       emerald: colors.emerald,
-      teal: colors.teal,
+      teal: '#52B4BA',
       cyan: colors.cyan,
       sky: colors.sky,
       blue: colors.blue,
-      indigo: colors.indigo,
-      violet: colors.violet,
-      purple: colors.purple,
+      indigo: '#070314',
+      violet: '#130038',
+      purple: '#641FEE',
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose
@@ -90,7 +90,9 @@ module.exports = {
       14: '3.5rem',
       16: '4rem',
       20: '5rem',
+      22: '5.5rem',
       24: '6rem',
+      26: '6.5rem',
       28: '7rem',
       32: '8rem',
       36: '9rem',
@@ -386,8 +388,8 @@ module.exports = {
       lg: ['1.125rem', { lineHeight: '1.75rem' }],
       xl: ['1.25rem', { lineHeight: '1.75rem' }],
       '2xl': ['1.5rem', { lineHeight: '2rem' }],
-      '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-      '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+      '3xl': ['2rem', { lineHeight: '2.5rem' }],
+      '4xl': ['2.5rem', { lineHeight: '3rem' }],
       '5xl': ['3rem', { lineHeight: '1' }],
       '6xl': ['3.75rem', { lineHeight: '1' }],
       '7xl': ['4.5rem', { lineHeight: '1' }],
@@ -606,7 +608,8 @@ module.exports = {
       7: '1.75rem',
       8: '2rem',
       9: '2.25rem',
-      10: '2.5rem'
+      10: '2.5rem',
+      12: '3rem'
     },
     listStyleType: {
       none: 'none',

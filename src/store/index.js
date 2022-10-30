@@ -42,12 +42,12 @@ export default new Vuex.Store({
         if (!addressData[event.owner]) {
           addressData[event.owner] = {
             tilesSpend: {
-              fud: fudSpent,
-              fomo: fomoSpent,
-              alpha: alphaSpent,
-              kek: kekSpent
+              fud: fudSpent * event.quantity,
+              fomo: fomoSpent * event.quantity,
+              alpha: alphaSpent * event.quantity,
+              kek: fudSpent * event.quantity
             },
-            tilesMinted: 1,
+            tilesMinted: event.quantity,
             installationsSpend: {
               fud: 0,
               fomo: 0,
@@ -61,7 +61,7 @@ export default new Vuex.Store({
           addressData[event.owner].tilesSpend.fomo += fomoSpent
           addressData[event.owner].tilesSpend.alpha += alphaSpent
           addressData[event.owner].tilesSpend.kek += kekSpent
-          addressData[event.owner].tilesMinted++
+          addressData[event.owner].tilesMinted += event.quantity
         }
       })
 
@@ -82,19 +82,19 @@ export default new Vuex.Store({
             },
             tilesMinted: 0,
             installationsSpend: {
-              fud: fudSpent,
-              fomo: fomoSpent,
-              alpha: alphaSpent,
-              kek: kekSpent
+              fud: fudSpent * event.quantity,
+              fomo: fomoSpent * event.quantity,
+              alpha: alphaSpent * event.quantity,
+              kek: fudSpent * event.quantity
             },
-            installationsMinted: 1
+            installationsMinted: event.quantity
           }
         } else {
           addressData[event.owner].installationsSpend.fud += fudSpent
           addressData[event.owner].installationsSpend.fomo += fomoSpent
           addressData[event.owner].installationsSpend.alpha += alphaSpent
           addressData[event.owner].installationsSpend.kek += kekSpent
-          addressData[event.owner].installationsMinted++
+          addressData[event.owner].installationsMinted += event.quantity
         }
       })
 

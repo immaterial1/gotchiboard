@@ -1,5 +1,46 @@
 <template>
   <div class="leaderboard">
+    <div class="bg-indigo pb-8">
+      <div class="max-w-screen-lg mx-auto">
+        <g-heading :level="'2'" :styleLevel="'2'" class="text-white text-center mb-8">
+          Welcome to the Gotchiboard Leaderboards!
+          <br/>
+          Are ya winning, son?
+        </g-heading>
+        <div class="flex justify-between">
+          <g-button element="router-link" :to="'/leaderboards/alchemica'" theme="primary" :large="true" class="w-52 h-22 pb-2 px-3">
+            <div class="flex items-center h-full">
+                <img src="../assets/alchemica.png" alt="Alchemica icon"/>
+                <span class="flex-1 text-2xl leading-none text-center">Alchemica</span>
+            </div>
+          </g-button>
+          <g-button element="router-link" :to="'/leaderboards/alchemica'" theme="primary" :large="true" class="w-52 h-22 pb-2 px-3">
+            <div class="flex items-center h-full">
+                <img src="../assets/baazaar.png" alt="Baazaar icon"/>
+                <span class="flex-1 text-2xl leading-none text-center">Baazaar</span>
+            </div>
+          </g-button>
+          <g-button element="router-link" :to="'/leaderboards/alchemica'" theme="primary" :large="true" class="w-52 h-22 pb-2 px-3">
+            <div class="flex items-center h-full">
+                <img src="../assets/gotchiverse.png" alt="Gotchiverse icon"/>
+                <span class="flex-1 text-2xl leading-none text-center">Parcel</span>
+            </div>
+          </g-button>
+          <g-button element="router-link" :to="'/leaderboards/alchemica'" theme="primary" :large="true" class="w-52 h-22 pb-2 px-3">
+            <div class="flex items-center h-full">
+                <img src="../assets/gltr.png" alt="Gltr icon"/>
+                <span class="flex-1 text-2xl leading-none text-center">GLTR</span>
+            </div>
+          </g-button>
+        </div>
+      </div>
+    </div>
+    <router-view />
+    <div class="pt-10">
+      <g-heading :level="'1'" :styleLevel="'1'" class="text-white">
+        Alchemica leaderboard
+      </g-heading>
+    </div>
     <div class="mb-4">
       <select class="form-select">
         <option>Total address spend</option>

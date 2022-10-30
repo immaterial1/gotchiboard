@@ -12,6 +12,7 @@ const mintTileEvents = async (timeFrom, timeTo) => {
           block
           timestamp
           owner
+          quantity
           tile {
             id
             tileType
@@ -48,6 +49,7 @@ const mintInstallationEvents = async (timeFrom, timeTo) => {
           block
           timestamp
           owner
+          quantity
           installationType {
             id
             level
