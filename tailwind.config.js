@@ -16,6 +16,10 @@ module.exports = {
       current: colors.current,
       transparent: colors.transparent,
       black: colors.black,
+      dark: {
+        DEFAULT: '#070314',
+        highlight: '#2F2B42'
+      },
       white: colors.white,
       slate: colors.slate,
       gray: colors.gray,
@@ -24,6 +28,7 @@ module.exports = {
       stone: colors.stone,
       red: colors.red,
       orange: colors.orange,
+      gold: '#FED670',
       amber: colors.amber,
       yellow: colors.yellow,
       lime: colors.lime,
@@ -34,8 +39,12 @@ module.exports = {
       sky: colors.sky,
       blue: colors.blue,
       indigo: '#070314',
-      violet: '#130038',
+      violet: {
+        DEFAULT: '#130038',
+        background: '#180051'
+      },
       purple: '#641FEE',
+      purpleDark: '#422588',
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose
@@ -96,6 +105,7 @@ module.exports = {
       28: '7rem',
       32: '8rem',
       36: '9rem',
+      37: '9.25rem',
       40: '10rem',
       44: '11rem',
       48: '12rem',
@@ -131,6 +141,8 @@ module.exports = {
     backgroundColor: ({ theme }) => theme('colors'),
     backgroundImage: {
       none: 'none',
+      backgroundLayout: "url('/src/assets/background.svg",
+      backgroundLayoutBottom: "url('/src/assets/background-bottom.svg",
       'gradient-to-t': 'linear-gradient(to top, var(--tw-gradient-stops))',
       'gradient-to-tr': 'linear-gradient(to top right, var(--tw-gradient-stops))',
       'gradient-to-r': 'linear-gradient(to right, var(--tw-gradient-stops))',

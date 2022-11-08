@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-12 border border-white text-2xl text-white">
+  <div class="flex h-12 border border-white text-2xl">
     <div
       v-for="option in options"
       :key="option.value"

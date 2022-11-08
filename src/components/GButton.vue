@@ -6,6 +6,7 @@
     :class="{
       'btn-lg': large,
       'theme-primary': theme === 'primary',
+      'disabled': disabled,
       'theme-secondary': theme === 'secondary'
     }">
     <slot/>
@@ -20,7 +21,8 @@ export default {
       type: String,
       default: () => 'button'
     },
-    large: Boolean
+    large: Boolean,
+    disabled: Boolean
   }
 }
 </script>
@@ -134,7 +136,12 @@ export default {
 */
 .btn.theme-primary {
   color: #fff;
+  background-color: #641FEE;
+}
+.btn.theme-primary.disabled {
+  color: #fff;
   background-color: #422588;
+  opacity: 50%;
 }
 
 .btn.theme-primary::after {
@@ -144,7 +151,16 @@ export default {
   bottom: -4px;
   left: -4px;
   content: "";
-  box-shadow: inset -4px -4px #2e195e;
+  box-shadow: inset -4px -4px #422588;
+}
+.btn.theme-primary.disabled::after {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  bottom: -4px;
+  left: -4px;
+  content: "";
+  box-shadow: inset -4px -4px #351C71;
 }
 .btn.btn-lg.theme-primary::after {
   position: absolute;
@@ -153,7 +169,16 @@ export default {
   bottom: -8px;
   left: -8px;
   content: "";
-  box-shadow: inset -8px -8px #2e195e;
+  box-shadow: inset -8px -8px #422588;
+}
+.btn.btn-lg.theme-primary.disabled::after {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -8px;
+  content: "";
+  box-shadow: inset -8px -8px #351C71;
 }
 
 .btn.theme-primary:hover {
@@ -161,12 +186,24 @@ export default {
   text-decoration: none;
   background-color: #361e6d;
 }
+.btn.theme-primary.disabled:hover {
+  color: #fff;
+  opacity: 100%;
+  text-decoration: none;
+  background-color: #422588;
+}
 
 .btn.theme-primary:hover::after {
-  box-shadow: inset -6px -6px #2e195e;
+  box-shadow: inset -6px -6px #422588;
 }
 .btn.btn-lg.theme-primary:hover::after {
-  box-shadow: inset -12px -12px #2e195e;
+  box-shadow: inset -12px -12px #422588;
+}
+.btn.theme-primary.disabled:hover::after {
+  box-shadow: inset -6px -6px #351C71;
+}
+.btn.btn-lg.theme-primary.disabled:hover::after {
+  box-shadow: inset -12px -12px #351C71;
 }
 
 .btn.theme-primary:focus {
@@ -177,10 +214,70 @@ export default {
 }
 
 .btn.theme-primary:active:not(.is-disabled)::after {
-  box-shadow: inset 4px 4px #2e195e;
+  box-shadow: inset 4px 4px #422588;
 }
 .btn.btn-lg.theme-primary:active:not(.is-disabled)::after {
-  box-shadow: inset 8px 8px #2e195e;
+  box-shadow: inset 8px 8px #422588;
+}
+.btn.theme-primary.disabled:active:not(.is-disabled)::after {
+  box-shadow: inset 4px 4px #351C71;
+}
+.btn.btn-lg.theme-primary.disabled:active:not(.is-disabled)::after {
+  box-shadow: inset 8px 8px #351C71;
+}
+
+/*
+    PRIMARY DISABLED
+*/
+.btn.theme-primary {
+  color: #fff;
+  background-color: #422588;
+}
+
+.btn.theme-primary::after {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  bottom: -4px;
+  left: -4px;
+  content: "";
+  box-shadow: inset -4px -4px #351C71;
+}
+.btn.btn-lg.theme-primary::after {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -8px;
+  content: "";
+  box-shadow: inset -8px -8px #351C71;
+}
+
+.btn.theme-primary:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #361e6d;
+}
+
+.btn.theme-primary:hover::after {
+  box-shadow: inset -6px -6px #351C71;
+}
+.btn.btn-lg.theme-primary:hover::after {
+  box-shadow: inset -12px -12px #351C71;
+}
+
+.btn.theme-primary:focus {
+  box-shadow: 0 0 0 6px rgba(46, 25, 94, 0.3);
+}
+.btn.btn-lg.theme-primary:focus {
+  box-shadow: 0 0 0 12px rgba(46, 25, 94, 0.3);
+}
+
+.btn.theme-primary:active:not(.is-disabled)::after {
+  box-shadow: inset 4px 4px #351C71;
+}
+.btn.btn-lg.theme-primary:active:not(.is-disabled)::after {
+  box-shadow: inset 8px 8px #351C71;
 }
 
 /*

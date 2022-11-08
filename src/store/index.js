@@ -11,6 +11,42 @@ export default new Vuex.Store({
     addressSpendData: []
   },
   getters: {
+    leaderboardAlchemica: (state) => {
+      return Object.keys(state.addressSpendData).map((address) => {
+        return {
+          address,
+          ...state.addressSpendData[address]
+        }
+      })
+    },
+    leaderboardAlchemicaStats: (state, getters) => {
+      const numOfAddresses = getters.leaderboardAlchemica.length
+      let tilesMinted = 0
+      let installationsMinted = 0
+      let totalFud = 0
+      let totalFomo = 0
+      let totalAlpha = 0
+      let totalKek = 0
+
+      getters.leaderboardAlchemica.forEach(address => {
+        tilesMinted += address.tilesMinted
+        installationsMinted += address.installationsMinted
+        totalFud += address.totalFud
+        totalFomo += address.totalFomo
+        totalAlpha += address.totalAlpha
+        totalKek += address.totalKek
+      })
+
+      return {
+        numOfAddresses,
+        tilesMinted,
+        installationsMinted,
+        totalFud,
+        totalFomo,
+        totalAlpha,
+        totalKek
+      }
+    }
   },
   mutations: {
   },
