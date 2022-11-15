@@ -1,17 +1,18 @@
 import axios from 'axios'
 
-const mintTileEvents = async (timeFrom, timeTo) => {
+const mintTileEvents = async (timeFrom, timeTo, owner) => {
   let results = []
   let numOfResults = 0
   let lastId = ''
   do {
     const response = await axios.post('https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic', JSON.stringify({
       query: `{
-        mintTileEvents(first: 1000, where: {timestamp_gt: ${timeFrom}, timestamp_lt: ${timeTo}, id_gt: "${lastId}"}) {
+        mintTileEvents(first: 1000, where: {${timeFrom ? `timestamp_gt:${timeFrom}, ` : ''}${timeTo ? `timestamp_lt:${timeTo}, ` : ''}${owner ? `owner:"${owner}", ` : ''}id_gt: "${lastId}"}) {
           id
           block
           timestamp
           owner
+          quantity
           tile {
             id
             tileType
@@ -36,18 +37,19 @@ const mintTileEvents = async (timeFrom, timeTo) => {
   return results
 }
 
-const mintInstallationEvents = async (timeFrom, timeTo) => {
+const mintInstallationEvents = async (timeFrom, timeTo, owner) => {
   let results = []
   let numOfResults = 0
   let lastId = ''
   do {
     const response = await axios.post('https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic', JSON.stringify({
       query: `{
-        mintInstallationEvents(first: 1000, where: {timestamp_gt: ${timeFrom}, timestamp_lt: ${timeTo}, id_gt: "${lastId}"}) {
+        mintInstallationEvents(first: 1000, where: {${timeFrom ? `timestamp_gt:${timeFrom}, ` : ''}${timeTo ? `timestamp_lt:${timeTo}, ` : ''}${owner ? `owner:"${owner}", ` : ''}id_gt: "${lastId}"}) {
           id
           block
           timestamp
           owner
+          quantity
           installationType {
             id
             level

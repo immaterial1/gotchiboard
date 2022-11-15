@@ -1,11 +1,7 @@
 <template>
   <div id="app">
-    <div class="px-8 py-2">
-      <HomeNav/>
-    </div>
-    <div class="container">
-      <router-view/>
-    </div>
+    <HomeNav/>
+    <router-view/>
   </div>
 </template>
 
