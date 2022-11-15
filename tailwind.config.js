@@ -933,6 +933,8 @@ module.exports = {
       '11/12': '91.666667%',
       full: '100%',
       screen: '100vw',
+      lg: '949px',
+      xl: '1280px',
       min: 'min-content',
       max: 'max-content',
       fit: 'fit-content'

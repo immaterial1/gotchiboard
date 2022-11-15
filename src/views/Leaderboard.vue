@@ -1,7 +1,7 @@
 <template>
   <div class="leaderboard">
     <div class="bg-indigo pb-8">
-      <div class="max-w-screen-lg mx-auto">
+      <div class="w-lg mx-auto">
         <g-heading :level="'2'" :styleLevel="'2'" class="text-center mb-8">
           Welcome to the Gotchiboard Leaderboards!
           <br/>
