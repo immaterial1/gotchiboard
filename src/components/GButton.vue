@@ -227,60 +227,6 @@ export default {
 }
 
 /*
-    PRIMARY DISABLED
-*/
-.btn.theme-primary {
-  color: #fff;
-  background-color: #422588;
-}
-
-.btn.theme-primary::after {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  bottom: -4px;
-  left: -4px;
-  content: "";
-  box-shadow: inset -4px -4px #351C71;
-}
-.btn.btn-lg.theme-primary::after {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  bottom: -8px;
-  left: -8px;
-  content: "";
-  box-shadow: inset -8px -8px #351C71;
-}
-
-.btn.theme-primary:hover {
-  color: #fff;
-  text-decoration: none;
-  background-color: #361e6d;
-}
-
-.btn.theme-primary:hover::after {
-  box-shadow: inset -6px -6px #351C71;
-}
-.btn.btn-lg.theme-primary:hover::after {
-  box-shadow: inset -12px -12px #351C71;
-}
-
-.btn.theme-primary:focus {
-  box-shadow: 0 0 0 6px rgba(46, 25, 94, 0.3);
-}
-.btn.btn-lg.theme-primary:focus {
-  box-shadow: 0 0 0 12px rgba(46, 25, 94, 0.3);
-}
-
-.btn.theme-primary:active:not(.is-disabled)::after {
-  box-shadow: inset 4px 4px #351C71;
-}
-.btn.btn-lg.theme-primary:active:not(.is-disabled)::after {
-  box-shadow: inset 8px 8px #351C71;
-}
-
-/*
     SECONDARY
 */
 .btn.theme-secondary {

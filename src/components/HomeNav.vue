@@ -8,14 +8,15 @@
         <div v-for="link of links" :key="link.value" class="h-10 px-3">
           <router-link
             class="items-center h-full block text-2xl text-white/50 hover:text-white"
-            :active-class="'border-b-2 border-white text-white'"
+            :active-class="'border-b-2 border-white !text-white'"
             :to="link.value">
             {{ link.label }}
           </router-link>
         </div>
       </div>
-      <div class="flex-none">
-        <g-button theme="secondary" class="px-2.5 pt-1.5 pb-3">
+      <div class="flex-none relative">
+        <div class="absolute h-full w-full l-0 t-0 z-10"></div>
+        <g-button theme="primary" disabled class="px-2.5 pt-1.5 pb-3">
           <div class="flex items-center">
               <img class="mr-2" src="../assets/wallet.svg" alt="Wallet icon"/>
               <span class="text-2xl leading-none">Connect Wallet</span>

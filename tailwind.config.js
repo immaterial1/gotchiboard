@@ -29,6 +29,8 @@ module.exports = {
       red: colors.red,
       orange: colors.orange,
       gold: '#FED670',
+      silver: '#E3D4FF',
+      bronze: '#969074',
       amber: colors.amber,
       yellow: colors.yellow,
       lime: colors.lime,

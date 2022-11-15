@@ -46,6 +46,21 @@ export default new Vuex.Store({
         totalAlpha,
         totalKek
       }
+    },
+    timeFromOptions: () => (timePeriod) => {
+      const options = []
+      const now = DateTime.utc()
+      options.push({ label: `This ${timePeriod} so far`, value: now.startOf(timePeriod).toSeconds() })
+      Array.from({ length: 10 }).forEach((x, i) => {
+        const minusOption = timePeriod === 'week' ? { days: 7 * (i + 1) } : { months: (i + 1) }
+        const date = now.minus(minusOption).startOf(timePeriod)
+        options.push({
+          label: `${timePeriod.charAt(0).toUpperCase() + timePeriod.slice(1)} starting ${date.toISODate()}`,
+          value: date.toSeconds()
+        })
+      })
+
+      return options
     }
   },
   mutations: {
@@ -144,6 +159,44 @@ export default new Vuex.Store({
       }
 
       context.state.addressSpendData = addressData
+    },
+    async getAddressAlchemicaSpend (context, options) {
+      if (!options.start) throw new Error('options.start parameter missing')
+      if (!options.timePeriod) throw new Error('options.timePeriod parameter missing')
+      if (!options.owner) throw new Error('options.timePeriod parameter missing')
+
+      const timeFrom = Math.round(options.start)
+
+      // Get timeTo value
+      let timeTo = Math.round(DateTime.fromSeconds(timeFrom, { zone: 'utc' }).endOf(options.timePeriod).toSeconds())
+
+      // If timeTo is in the future set to now
+      if (timeTo > DateTime.utc().toSeconds()) timeTo = Math.round(DateTime.now().toSeconds())
+
+      const tiles = await subgraph.mintTileEvents(timeFrom, timeTo, options.owner)
+      const installations = await subgraph.mintInstallationEvents(timeFrom, timeTo, options.owner)
+
+      return [...tiles, ...installations].map(x => {
+        const type = x.tile ? 'tile' : 'installationType'
+        const costFud = Number(utils.formatEther(x[type].alchemicaCost[0])) * x.quantity
+        const costFomo = Number(utils.formatEther(x[type].alchemicaCost[1])) * x.quantity
+        const costAlpha = Number(utils.formatEther(x[type].alchemicaCost[2])) * x.quantity
+        const costKek = Number(utils.formatEther(x[type].alchemicaCost[3])) * x.quantity
+
+        return {
+          eventId: x.id,
+          timestamp: x.timestamp,
+          quantity: x.quantity,
+          id: x[type].id,
+          name: x[type].name,
+          type: type === 'tile' ? type : 'installation',
+          costFud,
+          costFomo,
+          costAlpha,
+          costKek,
+          totalFud: Math.round(costFud + (costFomo * 2) + (costAlpha * 4) + (costKek * 10))
+        }
+      }).sort((a, b) => b.timestamp - a.timestamp)
     }
   },
   modules: {

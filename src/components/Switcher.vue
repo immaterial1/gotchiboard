@@ -1,5 +1,6 @@
 <template>
-  <div class="flex h-12 border border-white text-2xl">
+  <div class="flex h-12 border border-white text-2xl relative">
+    <div v-if="disabled" class="absolute h-full w-full l-0 t-0 z-10 bg-black opacity-25"></div>
     <div
       v-for="option in options"
       :key="option.value"
@@ -17,7 +18,8 @@
 export default {
   props: {
     options: Array,
-    value: String
+    value: String,
+    disabled: Boolean
   },
   data () {
     return {

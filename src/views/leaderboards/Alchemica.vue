@@ -9,14 +9,16 @@
           <switcher
             class="mr-6"
             :options="[{label: 'Month', value: 'month'},{label: 'Week', value: 'week'}]"
-            v-model="timePeriod"/>
+            :disabled="loading"
+            @input="changeTimePeriod"
+            :value="timePeriod"/>
           <select
             class="form-select border border-white bg-inherit text-2xl px-6"
             :disabled="loading"
             @input="changeTimeFrom($event.target.value)"
             :value="timeFrom">
             <option
-              v-for="option in timeFromOptions"
+              v-for="option in timeFromOptions(timePeriod)"
               :key="option.value"
               class="text-black"
               :value="option.value">
@@ -29,7 +31,7 @@
         Loading...
       </div>
       <template v-else>
-        <g-heading :level="'3'" :styleLevel="'3'" class="text-white/50 leading-8 mb-4">
+        <g-heading :level="'4'" :styleLevel="'4'" class="text-white/50 leading-8 mb-4">
           Total stats
         </g-heading>
         <bordered class="mb-7">
@@ -101,27 +103,35 @@
             </div>
           </div>
         </bordered>
+        <div class="flex mb-1 text-lg text-white/50">
+          <div class="mr-4">Rank</div>
+          <div class="flex-1">Address</div>
+          <div class="w-37">Total spend (in FUD)</div>
+        </div>
         <alchemica-placing
           v-if="leaderboardAlchemicaOrdered[0]"
           class="mb-5"
           :rank="1"
-          :data="leaderboardAlchemicaOrdered[0]" />
+          :data="leaderboardAlchemicaOrdered[0]"
+          @click.native="viewAddress(leaderboardAlchemicaOrdered[0].address)"/>
         <alchemica-placing
           v-if="leaderboardAlchemicaOrdered[1]"
           class="mb-5"
           :rank="2"
-          :data="leaderboardAlchemicaOrdered[1]" />
+          :data="leaderboardAlchemicaOrdered[1]"
+          @click.native="viewAddress(leaderboardAlchemicaOrdered[1].address)"/>
         <alchemica-placing
           v-if="leaderboardAlchemicaOrdered[2]"
           class="mb-5"
           :rank="3"
-          :data="leaderboardAlchemicaOrdered[2]" />
+          :data="leaderboardAlchemicaOrdered[2]"
+          @click.native="viewAddress(leaderboardAlchemicaOrdered[2].address)"/>
         <table class="w-full border-spacing-0 border-collapse mb-6">
           <thead class="text-left text-lg text-white/50">
             <tr>
-              <th>Rank</th>
-              <th>Address</th>
-              <th>
+              <th class="font-normal">Rank</th>
+              <th class="font-normal">Address</th>
+              <th class="font-normal">
                 <div class="flex items-center">
                   <img class="h-4 w-4 mr-1" src="../../assets/fud.png" alt="Fud token">
                   <div>
@@ -129,7 +139,7 @@
                   </div>
                 </div>
               </th>
-              <th>
+              <th class="font-normal">
                 <div class="flex items-center">
                   <img class="h-4 w-4 mr-1" src="../../assets/fomo.png" alt="Fomo token">
                   <div>
@@ -137,7 +147,7 @@
                   </div>
                 </div>
               </th>
-              <th>
+              <th class="font-normal">
                 <div class="flex items-center">
                   <img class="h-4 w-4 mr-1" src="../../assets/alpha.png" alt="Alpha token">
                   <div>
@@ -145,7 +155,7 @@
                   </div>
                 </div>
               </th>
-              <th>
+              <th class="font-normal">
                 <div class="flex items-center">
                   <img class="h-4 w-4 mr-1" src="../../assets/kek.png" alt="Kek token">
                   <div>
@@ -153,7 +163,7 @@
                   </div>
                 </div>
               </th>
-              <th class="w-37">
+              <th class="font-normal w-37">
                 Total spend (in FUD)
               </th>
             </tr>
@@ -162,7 +172,8 @@
             <tr
               v-for="(rank, i) in leaderboardAlchemicaOrdered.slice(4, shownPlaces + 1)"
               :key="rank.address"
-              class="hover:bg-dark-highlight cursor">
+              class="hover:bg-dark-highlight cursor"
+              @click="viewAddress(rank.address)">
               <td class="p-0">
                 <div class="inline-block h-6 pl-0.5 pr-2 text-center text-lg leading-6 bg-purple relative">
                   <div class="absolute top-0 -left-1 h-full w-1 bg-purple"></div>
@@ -191,7 +202,6 @@
   </background-layout>
 </template>
 <script>
-import { DateTime } from 'luxon'
 import { mapGetters } from 'vuex'
 
 import AlchemicaPlacing from '@/components/leaderboards/alchemica/AlchemicaPlacing.vue'
@@ -204,53 +214,55 @@ export default {
   data () {
     return {
       loading: true,
-      timePeriod: 'week',
-      timeFrom: '',
+      timePeriod: this.$route.query.timePeriod || 'week',
+      timeFrom: this.$route.query.timeFrom || '',
       shownPlaces: 50
     }
   },
   computed: {
     ...mapGetters([
       'leaderboardAlchemica',
-      'leaderboardAlchemicaStats'
+      'leaderboardAlchemicaStats',
+      'timeFromOptions'
     ]),
     leaderboardAlchemicaOrdered () {
       return [...this.leaderboardAlchemica].sort((a, b) => b.fudStandardSpent - a.fudStandardSpent)
-    },
-    timeFromOptions () {
-      const options = []
-      const now = DateTime.utc()
-      options.push({ label: `This ${this.timePeriod} so far`, value: now.startOf(this.timePeriod).toSeconds() })
-      Array.from({ length: 10 }).forEach((x, i) => {
-        const minusOption = this.timePeriod === 'week' ? { days: 7 * (i + 1) } : { months: (i + 1) }
-        const date = now.minus(minusOption).startOf(this.timePeriod)
-        options.push({
-          label: `${this.timePeriod.charAt(0).toUpperCase() + this.timePeriod.slice(1)} starting ${date.toISODate()}`,
-          value: date.toSeconds()
-        })
-      })
-
-      return options
     }
   },
   methods: {
     async changeTimePeriod (value) {
+      if (this.timePeriod === value) return
       this.timePeriod = value
-      await this.changeTimeFrom(this.timeFromOptions[0].value)
+      await this.changeTimeFrom(this.timeFromOptions(this.timePeriod)[0].value)
     },
     async changeTimeFrom (value) {
       this.loading = true
       this.timeFrom = value
+
+      // Sync router params if not already
+      if (this.timePeriod !== this.$route.query.timePeriod || this.timeFrom !== this.$route.query.timeFrom) this.$router.push({ query: { timePeriod: this.timePeriod, timeFrom: value } })
+
       await this.$store.dispatch('getAddressSpend', {
         start: value,
         timePeriod: this.timePeriod
       })
       this.loading = false
+    },
+    viewAddress (address) {
+      if (address) {
+        this.$router.push({
+          path: `/leaderboards/alchemica/${address}`,
+          query: {
+            timePeriod: this.timePeriod,
+            timeFrom: this.timeFrom
+          }
+        })
+      }
     }
   },
   async mounted () {
     try {
-      await this.changeTimeFrom(this.timeFromOptions[0].value)
+      await this.changeTimeFrom(this.timeFrom || this.timeFromOptions(this.timePeriod)[0].value)
       this.loading = false
     } catch (e) {
       console.error(e)
