@@ -1,6 +1,6 @@
 <template>
   <nav class="py-3 bg-indigo">
-    <div class="max-w-screen-xl mx-auto flex items-center">
+    <div class="w-xl mx-auto flex items-center">
       <div class="flex-none">
         <img src="../assets/logo.svg" width="202" height="16" alt="Gotchiboard logo">
       </div>

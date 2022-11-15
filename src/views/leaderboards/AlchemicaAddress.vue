@@ -1,6 +1,6 @@
 <template>
   <background-layout>
-    <div class="max-w-screen-lg mx-auto py-5">
+    <div class="w-lg mx-auto py-5">
       <router-link :to="{path: '/leaderboards/alchemica', query: { timePeriod: $route.query.timePeriod, timeFrom: $route.query.timeFrom }}" class="flex mb-2 items-center">
         <img class="mt-1 mr-4" src="../../assets/chevron_left.svg" alt="">
         <span class="text-2xl hover:underline">Back to Alchemica leaderboard</span>
