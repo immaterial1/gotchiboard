@@ -45,7 +45,7 @@
                   Unique addresses
                 </div>
                 <div class="text-3xl leading-8 -mt-0.5">
-                  {{ leaderboardAlchemicaStats.numOfAddresses.toLocaleString() }}
+                  {{ leaderboardAlchemicaStats(timePeriod, timeFrom).numOfAddresses.toLocaleString() }}
                 </div>
               </div>
               <div class="text-center">
@@ -56,7 +56,7 @@
                   Tiles minted
                 </div>
                 <div class="text-3xl leading-8 -mt-0.5">
-                  {{ leaderboardAlchemicaStats.tilesMinted.toLocaleString() }}
+                  {{ leaderboardAlchemicaStats(timePeriod, timeFrom).tilesMinted.toLocaleString() }}
                 </div>
               </div>
               <div class="text-center">
@@ -67,7 +67,7 @@
                   Installations minted
                 </div>
                 <div class="text-3xl leading-8 -mt-0.5">
-                  {{ leaderboardAlchemicaStats.installationsMinted.toLocaleString() }}
+                  {{ leaderboardAlchemicaStats(timePeriod, timeFrom).installationsMinted.toLocaleString() }}
                 </div>
               </div>
             </div>
@@ -76,28 +76,28 @@
                 <img class="h-10 w-10 mr-3" src="../../assets/fud.png" alt="Fud token">
                 <div>
                   <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">FUD</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats.totalFud.toLocaleString() }}</div>
+                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats(timePeriod, timeFrom).totalFud.toLocaleString() }}</div>
                 </div>
               </div>
               <div class="flex">
                 <img class="h-10 w-10 mr-3" src="../../assets/fomo.png" alt="Fomo token">
                 <div>
                   <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">FOMO</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats.totalFomo.toLocaleString() }}</div>
+                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats(timePeriod, timeFrom).totalFomo.toLocaleString() }}</div>
                 </div>
               </div>
               <div class="flex">
                 <img class="h-10 w-10 mr-3" src="../../assets/alpha.png" alt="Alpha token">
                 <div>
                   <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">ALPHA</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats.totalAlpha.toLocaleString() }}</div>
+                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats(timePeriod, timeFrom).totalAlpha.toLocaleString() }}</div>
                 </div>
               </div>
               <div class="flex">
                 <img class="h-10 w-10 mr-3" src="../../assets/kek.png" alt="Kek token">
                 <div>
                   <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">KEK</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats.totalKek.toLocaleString() }}</div>
+                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats(timePeriod, timeFrom).totalKek.toLocaleString() }}</div>
                 </div>
               </div>
             </div>
@@ -180,7 +180,16 @@
                   #{{ i + 4 }}
                 </div>
               </td>
-              <td class="py-4 pr-6">{{ rank.address }}</td>
+              <td class="py-4 pr-6 text-2xl">
+                <div class="flex items-center">
+                  <div class="w-4 align-bottom overflow-hidden">
+                    {{ rank.address }}
+                  </div>
+                  <div class="flex-1">
+                    {{ rank.address.substring(2,4) }}...{{ rank.address.substring(rank.address.length -4) }}
+                  </div>
+                </div>
+              </td>
               <td class="py-4 pr-6 text-xl">{{ rank.totalFud.toLocaleString() }}</td>
               <td class="py-4 pr-6 text-xl">{{ rank.totalFomo.toLocaleString() }}</td>
               <td class="py-4 pr-6 text-xl">{{ rank.totalAlpha.toLocaleString() }}</td>
@@ -226,7 +235,7 @@ export default {
       'timeFromOptions'
     ]),
     leaderboardAlchemicaOrdered () {
-      return [...this.leaderboardAlchemica].sort((a, b) => b.fudStandardSpent - a.fudStandardSpent)
+      return [...this.leaderboardAlchemica(this.timePeriod, this.timeFrom)].sort((a, b) => b.fudStandardSpent - a.fudStandardSpent)
     }
   },
   methods: {
@@ -243,7 +252,7 @@ export default {
       if (this.timePeriod !== this.$route.query.timePeriod || this.timeFrom !== this.$route.query.timeFrom) this.$router.push({ query: { timePeriod: this.timePeriod, timeFrom: value } })
 
       await this.$store.dispatch('getAddressSpend', {
-        start: value,
+        timeFrom: value,
         timePeriod: this.timePeriod
       })
       this.loading = false

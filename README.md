@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Scripts
+To run the scripts, add `"type": "module"` to the package.json and run the script from the root directory
