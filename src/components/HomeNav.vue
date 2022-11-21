@@ -32,8 +32,8 @@ export default {
   data () {
     return {
       links: [
-        { label: 'Dashboard', value: '/dashboard' },
-        { label: 'Leaderboard', value: '/leaderboards' },
+        { label: 'Leaderboards', value: '/leaderboards' },
+        { label: 'Competitions', value: '/competitions' },
         { label: 'About us', value: '/about' }
       ]
     }

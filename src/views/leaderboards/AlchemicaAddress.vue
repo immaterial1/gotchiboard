@@ -254,7 +254,7 @@ export default {
       if (this.timePeriod !== this.$route.query.timePeriod || this.timeFrom !== this.$route.query.timeFrom) this.$router.push({ query: { timePeriod: this.timePeriod, timeFrom: value } })
 
       this.data = await this.$store.dispatch('getAddressAlchemicaSpend', {
-        start: value,
+        timeFrom: value,
         timePeriod: this.timePeriod,
         owner: this.$route.params.address
       })

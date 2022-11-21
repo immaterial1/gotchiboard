@@ -1,3 +1,9 @@
+## This rule redirects to hosted data
+[[redirects]]
+  from = "/data/*"
+  to = "/data/:splat"
+  force = true # COMMENT: ensure that we always redirect
+
 # The following redirect is intended for use with most SPAs 
 # that handle routing internally.
 [[redirects]]

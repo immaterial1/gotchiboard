@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Dashboard from '../views/Dashboard.vue'
+import Competitions from '../views/Competitions.vue'
 import Leaderboard from '../views/Leaderboard.vue'
 import About from '../views/About.vue'
 import AlchemicaLeaderboard from '../views/leaderboards/Alchemica.vue'
@@ -50,9 +50,9 @@ const routes = [
     component: AlchemicaLeaderboardAddress
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard
+    path: '/competitions',
+    name: 'Competitions',
+    component: Competitions
   },
   {
     path: '/about',
