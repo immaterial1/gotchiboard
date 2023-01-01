@@ -34,75 +34,9 @@
         <g-heading :level="'4'" :styleLevel="'4'" class="text-white/50 leading-8 mb-4">
           Total stats
         </g-heading>
-        <bordered class="mb-7">
-          <div>
-            <div class="flex justify-between px-12 py-6 bg-purple">
-              <div class="text-center">
-                <div class="mb-2">
-                  <img class="inline-block w-8 h-8" src="../../assets/wallet.svg" alt="wallet icon">
-                </div>
-                <div class="text-2xl leading-6">
-                  Unique addresses
-                </div>
-                <div class="text-3xl leading-8 -mt-0.5">
-                  {{ leaderboardAlchemicaStats(timePeriod, timeFrom).numOfAddresses.toLocaleString() }}
-                </div>
-              </div>
-              <div class="text-center">
-                <div class="mb-2">
-                  <img class="inline-block w-8 h-8" src="../../assets/tile.svg" alt="tile icon">
-                </div>
-                <div class="text-2xl leading-6">
-                  Tiles minted
-                </div>
-                <div class="text-3xl leading-8 -mt-0.5">
-                  {{ leaderboardAlchemicaStats(timePeriod, timeFrom).tilesMinted.toLocaleString() }}
-                </div>
-              </div>
-              <div class="text-center">
-                <div class="mb-2">
-                  <img class="inline-block w-8 h-8" src="../../assets/home.svg" alt="home icon">
-                </div>
-                <div class="text-2xl leading-6">
-                  Installations minted
-                </div>
-                <div class="text-3xl leading-8 -mt-0.5">
-                  {{ leaderboardAlchemicaStats(timePeriod, timeFrom).installationsMinted.toLocaleString() }}
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-between p-7 bg-purpleDark">
-              <div class="flex">
-                <img class="h-10 w-10 mr-3" src="../../assets/fud.png" alt="Fud token">
-                <div>
-                  <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">FUD</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats(timePeriod, timeFrom).totalFud.toLocaleString() }}</div>
-                </div>
-              </div>
-              <div class="flex">
-                <img class="h-10 w-10 mr-3" src="../../assets/fomo.png" alt="Fomo token">
-                <div>
-                  <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">FOMO</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats(timePeriod, timeFrom).totalFomo.toLocaleString() }}</div>
-                </div>
-              </div>
-              <div class="flex">
-                <img class="h-10 w-10 mr-3" src="../../assets/alpha.png" alt="Alpha token">
-                <div>
-                  <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">ALPHA</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats(timePeriod, timeFrom).totalAlpha.toLocaleString() }}</div>
-                </div>
-              </div>
-              <div class="flex">
-                <img class="h-10 w-10 mr-3" src="../../assets/kek.png" alt="Kek token">
-                <div>
-                  <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">KEK</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ leaderboardAlchemicaStats(timePeriod, timeFrom).totalKek.toLocaleString() }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </bordered>
+        <alchemica-stats
+          class="mb-7"
+          :stats="leaderboardAlchemicaStats(timePeriod, timeFrom)" />
         <div class="flex mb-1 text-lg text-white/50">
           <div class="mr-4">Rank</div>
           <div class="flex-1">Address</div>
@@ -126,78 +60,10 @@
           :rank="3"
           :data="leaderboardAlchemicaOrdered[2]"
           @click.native="viewAddress(leaderboardAlchemicaOrdered[2].address)"/>
-        <table class="w-full border-spacing-0 border-collapse mb-6">
-          <thead class="text-left text-lg text-white/50">
-            <tr>
-              <th class="font-normal">Rank</th>
-              <th class="font-normal">Address</th>
-              <th class="font-normal">
-                <div class="flex items-center">
-                  <img class="h-4 w-4 mr-1" src="../../assets/fud.png" alt="Fud token">
-                  <div>
-                    <div class="leading-4">FUD</div>
-                  </div>
-                </div>
-              </th>
-              <th class="font-normal">
-                <div class="flex items-center">
-                  <img class="h-4 w-4 mr-1" src="../../assets/fomo.png" alt="Fomo token">
-                  <div>
-                    <div class="leading-4">FOMO</div>
-                  </div>
-                </div>
-              </th>
-              <th class="font-normal">
-                <div class="flex items-center">
-                  <img class="h-4 w-4 mr-1" src="../../assets/alpha.png" alt="Alpha token">
-                  <div>
-                    <div class="leading-4">ALPHA</div>
-                  </div>
-                </div>
-              </th>
-              <th class="font-normal">
-                <div class="flex items-center">
-                  <img class="h-4 w-4 mr-1" src="../../assets/kek.png" alt="Kek token">
-                  <div>
-                    <div class="leading-4">KEK</div>
-                  </div>
-                </div>
-              </th>
-              <th class="font-normal w-37">
-                Total spend (in FUD)
-              </th>
-            </tr>
-          </thead>
-          <tbody class="bg-dark border-4 border-neutral-800 text-lg">
-            <tr
-              v-for="(rank, i) in leaderboardAlchemicaOrdered.slice(4, shownPlaces + 1)"
-              :key="rank.address"
-              class="hover:bg-dark-highlight cursor"
-              @click="viewAddress(rank.address)">
-              <td class="p-0">
-                <div class="inline-block h-6 pl-0.5 pr-2 text-center text-lg leading-6 bg-purple relative">
-                  <div class="absolute top-0 -left-1 h-full w-1 bg-purple"></div>
-                  #{{ i + 4 }}
-                </div>
-              </td>
-              <td class="py-4 pr-6 text-2xl">
-                <div class="flex items-center">
-                  <div class="w-4 align-bottom overflow-hidden">
-                    {{ rank.address }}
-                  </div>
-                  <div class="flex-1">
-                    {{ rank.address.substring(2,4) }}...{{ rank.address.substring(rank.address.length -4) }}
-                  </div>
-                </div>
-              </td>
-              <td class="py-4 pr-6 text-xl">{{ rank.totalFud.toLocaleString() }}</td>
-              <td class="py-4 pr-6 text-xl">{{ rank.totalFomo.toLocaleString() }}</td>
-              <td class="py-4 pr-6 text-xl">{{ rank.totalAlpha.toLocaleString() }}</td>
-              <td class="py-4 pr-6 text-xl">{{ rank.totalKek.toLocaleString() }}</td>
-              <td class="w-36 py-4 text-3xl">{{ rank.fudStandardSpent.toLocaleString() }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <alchemica-table
+          class="mb-6"
+          :addresses="leaderboardAlchemicaOrdered.slice(3, shownPlaces)"
+          @click="viewAddress"/>
         <div v-if="shownPlaces < leaderboardAlchemicaOrdered.length" class="text-center">
           <g-button
             class="px-2.5 pt-1.5 pb-3"
@@ -214,11 +80,15 @@
 import { mapGetters } from 'vuex'
 
 import AlchemicaPlacing from '@/components/leaderboards/alchemica/AlchemicaPlacing.vue'
+import AlchemicaStats from '@/components/leaderboards/alchemica/AlchemicaStats.vue'
+import AlchemicaTable from '@/components/leaderboards/alchemica/AlchemicaTable.vue'
 
 export default {
   name: 'AlchemicaLeaderboardView',
   components: {
-    AlchemicaPlacing
+    AlchemicaPlacing,
+    AlchemicaStats,
+    AlchemicaTable
   },
   data () {
     return {
@@ -251,7 +121,7 @@ export default {
       // Sync router params if not already
       if (this.timePeriod !== this.$route.query.timePeriod || this.timeFrom !== this.$route.query.timeFrom) this.$router.push({ query: { timePeriod: this.timePeriod, timeFrom: value } })
 
-      await this.$store.dispatch('getAddressSpend', {
+      await this.$store.dispatch('getLeaderboardAddressSpend', {
         timeFrom: value,
         timePeriod: this.timePeriod
       })
