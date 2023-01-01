@@ -43,140 +43,12 @@
         <g-heading :level="'4'" :styleLevel="'4'" class="text-white/50 leading-8 mb-4">
           Total stats
         </g-heading>
-        <bordered class="mb-7">
-          <div>
-            <div class="flex justify-between px-12 py-6 bg-purple">
-              <div class="text-center">
-                <div class="mb-2">
-                  <img class="inline-block w-8 h-8" src="../../assets/wallet.svg" alt="wallet icon">
-                </div>
-                <div class="text-2xl leading-6">
-                  Total spend (in FUD)
-                </div>
-                <div class="text-3xl leading-8 -mt-0.5">
-                  {{ spendingStats.totalSpend.toLocaleString() }}
-                </div>
-              </div>
-              <div class="text-center">
-                <div class="mb-2">
-                  <img class="inline-block w-8 h-8" src="../../assets/tile.svg" alt="tile icon">
-                </div>
-                <div class="text-2xl leading-6">
-                  Tiles minted
-                </div>
-                <div class="text-3xl leading-8 -mt-0.5">
-                  {{ spendingStats.tilesMinted.toLocaleString() }}
-                </div>
-              </div>
-              <div class="text-center">
-                <div class="mb-2">
-                  <img class="inline-block w-8 h-8" src="../../assets/home.svg" alt="home icon">
-                </div>
-                <div class="text-2xl leading-6">
-                  Installations minted
-                </div>
-                <div class="text-3xl leading-8 -mt-0.5">
-                  {{ spendingStats.installationsMinted.toLocaleString() }}
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-between p-7 bg-purpleDark">
-              <div class="flex">
-                <img class="h-10 w-10 mr-3" src="../../assets/fud.png" alt="Fud token">
-                <div>
-                  <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">FUD</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ spendingStats.totalFud.toLocaleString() }}</div>
-                </div>
-              </div>
-              <div class="flex">
-                <img class="h-10 w-10 mr-3" src="../../assets/fomo.png" alt="Fomo token">
-                <div>
-                  <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">FOMO</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ spendingStats.totalFomo.toLocaleString() }}</div>
-                </div>
-              </div>
-              <div class="flex">
-                <img class="h-10 w-10 mr-3" src="../../assets/alpha.png" alt="Alpha token">
-                <div>
-                  <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">ALPHA</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ spendingStats.totalAlpha.toLocaleString() }}</div>
-                </div>
-              </div>
-              <div class="flex">
-                <img class="h-10 w-10 mr-3" src="../../assets/kek.png" alt="Kek token">
-                <div>
-                  <div class="text-white/50 text-lg tracking-wide leading-4 -mt-px">KEK</div>
-                  <div class="text-3xl tracking-wide leading-7 -mt-0.5">{{ spendingStats.totalKek.toLocaleString() }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </bordered>
-        <table class="w-full border-spacing-0 border-collapse mb-6">
-          <thead class="text-left text-lg text-white/50">
-            <tr>
-              <th class="font-normal">Image</th>
-              <th class="font-normal">Date/Time</th>
-              <th class="font-normal pr-6">Quantity</th>
-              <th class="font-normal">
-                <div class="flex items-center">
-                  <img class="h-4 w-4 mr-1" src="../../assets/fud.png" alt="Fud token">
-                  <div>
-                    <div class="leading-4">FUD</div>
-                  </div>
-                </div>
-              </th>
-              <th class="font-normal">
-                <div class="flex items-center">
-                  <img class="h-4 w-4 mr-1" src="../../assets/fomo.png" alt="Fomo token">
-                  <div>
-                    <div class="leading-4">FOMO</div>
-                  </div>
-                </div>
-              </th>
-              <th class="font-normal">
-                <div class="flex items-center">
-                  <img class="h-4 w-4 mr-1" src="../../assets/alpha.png" alt="Alpha token">
-                  <div>
-                    <div class="leading-4">ALPHA</div>
-                  </div>
-                </div>
-              </th>
-              <th class="font-normal">
-                <div class="flex items-center">
-                  <img class="h-4 w-4 mr-1" src="../../assets/kek.png" alt="Kek token">
-                  <div>
-                    <div class="leading-4">KEK</div>
-                  </div>
-                </div>
-              </th>
-              <th class="font-normal w-37">
-                Total (in FUD)
-              </th>
-            </tr>
-          </thead>
-          <tbody class="bg-dark border-4 border-neutral-800 text-lg">
-            <tr
-              v-for="item in data.slice(0, shownPlaces + 1)"
-              :key="item.eventId">
-              <td class="py-4 px-6 w-[80px] text-center">
-                <img class="max-w-[80px] max-h-[80px] inline-block" :src="`/installations/${item.type}_${item.id}.png`" :alt="item.name"/>
-              </td>
-              <td class="py-4 pr-6">
-                <div class="text-xl">
-                  {{ item.name }}
-                </div>
-                <span class="text-lg">{{ DateTime.fromSeconds(Number(item.timestamp)).toLocaleString(DateTime.DATETIME_SHORT) }}</span>
-              </td>
-              <td class="py-4 pr-6 text-xl">{{ item.quantity.toLocaleString() }}</td>
-              <td class="py-4 pr-6 text-xl">{{ item.costFud.toLocaleString() }}</td>
-              <td class="py-4 pr-6 text-xl">{{ item.costFomo.toLocaleString() }}</td>
-              <td class="py-4 pr-6 text-xl">{{ item.costAlpha.toLocaleString() }}</td>
-              <td class="py-4 pr-6 text-xl">{{ item.costKek.toLocaleString() }}</td>
-              <td class="w-36 py-4 text-3xl">{{ item.totalFud.toLocaleString() }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <AlchemicaStats
+          class="mb-7"
+          :stats="spendingStats" />
+        <AlchemicaAddressTable
+          class="mb-6"
+          :data="data.slice(0, shownPlaces + 1)" />
         <div v-if="shownPlaces < data.length" class="text-center">
           <g-button
             class="px-2.5 pt-1.5 pb-3"
@@ -195,7 +67,14 @@
 import { DateTime } from 'luxon'
 import { mapGetters } from 'vuex'
 
+import AlchemicaStats from '@/components/leaderboards/alchemica/AlchemicaStats.vue'
+import AlchemicaAddressTable from '@/components/leaderboards/alchemica/AlchemicaAddressTable.vue'
+
 export default {
+  components: {
+    AlchemicaStats,
+    AlchemicaAddressTable
+  },
   data () {
     return {
       loading: true,
