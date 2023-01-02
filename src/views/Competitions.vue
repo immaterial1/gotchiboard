@@ -17,7 +17,7 @@
             <IndexTile
               :active="true"
               :title="'Alchemica Spending Season 1'"
-              :date="'Dates tbc'"
+              :date="'January 16th 2023'"
               :prizepool="80000"
               @click.native="$router.push('/competitions/alch-spending-season-1')"/>
           </div>

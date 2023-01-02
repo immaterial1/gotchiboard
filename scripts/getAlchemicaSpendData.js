@@ -5,7 +5,8 @@ const main = async () => {
   const timePeriods = ['week', 'month']
 
   for (const timePeriod of timePeriods) {
-    const timeFroms = transforms.gotchiverseTimeFroms(timePeriod)
+    // Ignore current week
+    const timeFroms = transforms.gotchiverseTimeFroms(timePeriod).slice(1)
 
     for (const timeFrom of timeFroms) {
       const data = await transforms.alchemicaSpendByAddress({ timePeriod, timeFrom })
