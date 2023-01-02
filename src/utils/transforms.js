@@ -57,11 +57,11 @@ export default {
             fud: fudSpent * event.quantity,
             fomo: fomoSpent * event.quantity,
             alpha: alphaSpent * event.quantity,
-            kek: fudSpent * event.quantity,
+            kek: kekSpent * event.quantity,
             fudModified: (fudSpent * modifier) * event.quantity,
             fomoModified: (fomoSpent * modifier) * event.quantity,
             alphaModified: (alphaSpent * modifier) * event.quantity,
-            kekModified: (fudSpent * modifier) * event.quantity
+            kekModified: (kekSpent * modifier) * event.quantity
           },
           tilesMinted: event.quantity,
           installationsSpend: {
@@ -77,14 +77,14 @@ export default {
           installationsMinted: 0
         }
       } else {
-        addressData[event.owner].tilesSpend.fud += fudSpent
-        addressData[event.owner].tilesSpend.fomo += fomoSpent
-        addressData[event.owner].tilesSpend.alpha += alphaSpent
-        addressData[event.owner].tilesSpend.kek += kekSpent
-        addressData[event.owner].tilesSpend.fudModified += (fudSpent * modifier)
-        addressData[event.owner].tilesSpend.fomoModified += (fomoSpent * modifier)
-        addressData[event.owner].tilesSpend.alphaModified += (alphaSpent * modifier)
-        addressData[event.owner].tilesSpend.kekModified += (kekSpent * modifier)
+        addressData[event.owner].tilesSpend.fud += fudSpent * event.quantity
+        addressData[event.owner].tilesSpend.fomo += fomoSpent * event.quantity
+        addressData[event.owner].tilesSpend.alpha += alphaSpent * event.quantity
+        addressData[event.owner].tilesSpend.kek += kekSpent * event.quantity
+        addressData[event.owner].tilesSpend.fudModified += (fudSpent * modifier) * event.quantity
+        addressData[event.owner].tilesSpend.fomoModified += (fomoSpent * modifier) * event.quantity
+        addressData[event.owner].tilesSpend.alphaModified += (alphaSpent * modifier) * event.quantity
+        addressData[event.owner].tilesSpend.kekModified += (kekSpent * modifier) * event.quantity
         addressData[event.owner].tilesMinted += event.quantity
       }
     })
@@ -120,23 +120,23 @@ export default {
             fud: fudSpent * event.quantity,
             fomo: fomoSpent * event.quantity,
             alpha: alphaSpent * event.quantity,
-            kek: fudSpent * event.quantity,
+            kek: kekSpent * event.quantity,
             fudModified: (fudSpent * modifier) * event.quantity,
             fomoModified: (fomoSpent * modifier) * event.quantity,
             alphaModified: (alphaSpent * modifier) * event.quantity,
-            kekModified: (fudSpent * modifier) * event.quantity
+            kekModified: (kekSpent * modifier) * event.quantity
           },
           installationsMinted: event.quantity
         }
       } else {
-        addressData[event.owner].installationsSpend.fud += fudSpent
-        addressData[event.owner].installationsSpend.fomo += fomoSpent
-        addressData[event.owner].installationsSpend.alpha += alphaSpent
-        addressData[event.owner].installationsSpend.kek += kekSpent
-        addressData[event.owner].installationsSpend.fudModified += (fudSpent * modifier)
-        addressData[event.owner].installationsSpend.fomoModified += (fomoSpent * modifier)
-        addressData[event.owner].installationsSpend.alphaModified += (alphaSpent * modifier)
-        addressData[event.owner].installationsSpend.kekModified += (kekSpent * modifier)
+        addressData[event.owner].installationsSpend.fud += fudSpent * event.quantity
+        addressData[event.owner].installationsSpend.fomo += fomoSpent * event.quantity
+        addressData[event.owner].installationsSpend.alpha += alphaSpent * event.quantity
+        addressData[event.owner].installationsSpend.kek += kekSpent * event.quantity
+        addressData[event.owner].installationsSpend.fudModified += (fudSpent * modifier) * event.quantity
+        addressData[event.owner].installationsSpend.fomoModified += (fomoSpent * modifier) * event.quantity
+        addressData[event.owner].installationsSpend.alphaModified += (alphaSpent * modifier) * event.quantity
+        addressData[event.owner].installationsSpend.kekModified += (kekSpent * modifier) * event.quantity
         addressData[event.owner].installationsMinted += event.quantity
       }
     })

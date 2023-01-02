@@ -15,7 +15,7 @@
               <h1 class="text-5xl mb-1">Alchemica Spending Season 1</h1>
               <div class="text-2xl leading-6 mb-1">
                 <span class="text-white/50">Date: </span>
-                TBC
+                January 16th 2023
               </div>
               <div class="text-2xl leading-6 mb-4 flex">
                 <div class="text-white/50 mr-2">Prize pool: </div>
