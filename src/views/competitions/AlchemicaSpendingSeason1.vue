@@ -35,13 +35,17 @@
           </div>
           <div v-if="showRules" class="mt-8 text-2xl">
             <p class="mb-4">
-              Welcome frens to the first Alchemica spending competition!
+              Welcome frens, to the first Alchemica spending competition!
               <br />
               Climb the leaderboard by spending Alchemica in the Gotchiverse to win GHST prizes.
             </p>
             Please pay attention to the following rules:
-            <ul class="list-disc list-inside">
-              <li>The leaderboard is ranked by "Total spend (in FUD)"</li>
+            <ul class="list-disc list-inside mb-4">
+              <li>The competition consists of 4 rounds</li>
+              <li>Each round will last 1 week and run from UTC Monday 00:00:00 to Sunday 23:59:59</li>
+              <li>Each round has a prizepool of 20k GHST</li>
+              <li>The top 50 ranked in each round will win a prize as shown in the scoreboard</li>
+              <li>Each round is ranked by "Total spend (in FUD)"</li>
               <ul class="list-[circle] list-inside ml-8">
                 <li>This is the sum total amount of Alchemica spent in the round</li>
                 <li>It is calculated using 10 FUD = 5 FOMO = 2.5 ALPHA = 1 KEK</li>
@@ -53,14 +57,13 @@
                 <li>Crafting tiles</li>
                 <li>Upgrading installations</li>
               </ul>
-              <li>The competition consists of 4 rounds</li>
-              <li>Each round will last 1 week and run from UTC Monday 00:00:00 to Sunday 23:59:59</li>
-              <li>Each round has a prizepool of 20k GHST</li>
-              <li>The top 50 spenders in each round will win a prize as shown in the scoreboard</li>
+              <li>Spending on installations only counts at the time of claiming (after craft time)</li>
+              <li>Use max GLTR for spending to count instantly</li>
               <li>Each round has different time based multipliers</li>
               <li>Time your spending wisely to maximise your total spend each round!</li>
               <li>Prizes will be sent out ASAP after each round</li>
             </ul>
+            Have fun and good luck frens!
           </div>
         </div>
       </bordered>
