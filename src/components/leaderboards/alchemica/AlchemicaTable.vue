@@ -47,7 +47,7 @@
     <tbody class="bg-dark border-4 border-neutral-800 text-lg">
       <tr
         v-for="(rank, i) in addresses"
-        :key="rank.address"
+        :key="i"
         class="hover:bg-dark-highlight cursor"
         @click="$emit('click', rank.address)">
         <td class="p-0">
@@ -57,7 +57,10 @@
           </div>
         </td>
         <td class="py-4 pr-6 text-2xl">
-          <div class="flex items-center">
+          <span v-if="rank.address === '-'">-</span>
+          <div
+            v-else
+            class="flex items-center">
             <div class="w-[21px] align-bottom overflow-hidden">
               {{ rank.address }}
             </div>
