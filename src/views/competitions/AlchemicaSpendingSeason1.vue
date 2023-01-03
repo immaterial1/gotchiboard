@@ -9,7 +9,8 @@
         <div class="border-4 border-gold bg-dark p-7 pb-6">
           <div class="flex">
             <div class="h-40 w-56 flex items-center mr-6">
-              <img src="../../assets/comp1-blue.png" alt="Alchemica spending season 1 logo" class="max-h-full max-w-full inline-block mb-2" />
+              <img src="../../assets/comp1-blue.png" alt="Alchemica spending season 1 logo"
+                class="max-h-full max-w-full inline-block mb-2" />
             </div>
             <div class="flex-1">
               <h1 class="text-5xl mb-1">Alchemica Spending Season 1</h1>
@@ -35,7 +36,7 @@
           <div v-if="showRules" class="mt-8 text-2xl">
             <p class="mb-4">
               Welcome frens to the first Alchemica spending competition!
-              <br/>
+              <br />
               Climb the leaderboard by spending Alchemica in the Gotchiverse to win GHST prizes.
             </p>
             Please pay attention to the following rules:
@@ -204,7 +205,30 @@ export default {
       'competitionAlchemicaStats'
     ]),
     leaderboardAlchemicaOrdered () {
-      return [...this.competitionAlchemica(this.season, this.round)].sort((a, b) => b.fudStandardSpentModified - a.fudStandardSpentModified)
+      let leaderboard = [...this.competitionAlchemica(this.season, this.round)].sort((a, b) => b.fudStandardSpentModified - a.fudStandardSpentModified)
+
+      if (leaderboard.length < this.competitionData[this.round - 1].ghstPayouts.length) {
+        const pad = new Array(this.competitionData[this.round - 1].ghstPayouts.length).fill({
+          address: '-',
+          tilesSpend: { fud: 0, fomo: 0, alpha: 0, kek: 0, fudModified: 0, fomoModified: 0, alphaModified: 0, kekModified: 0 },
+          tilesMinted: 0,
+          installationsSpend: { fud: 0, fomo: 0, alpha: 0, kek: 0, fudModified: 0, fomoModified: 0, alphaModified: 0, kekModified: 0 },
+          installationsMinted: 0,
+          totalFud: 0,
+          totalFomo: 0,
+          totalAlpha: 0,
+          totalKek: 0,
+          fudStandardSpent: 0,
+          totalFudModified: 0,
+          totalFomoModified: 0,
+          totalAlphaModified: 0,
+          totalKekModified: 0,
+          fudStandardSpentModified: 0
+        })
+        leaderboard = leaderboard.concat(pad).slice(0, this.competitionData[this.round - 1].ghstPayouts.length)
+      }
+
+      return leaderboard
     },
     competitionData () {
       return this.$store.state.competitionData.alchemica[this.season]
