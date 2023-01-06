@@ -15,7 +15,7 @@
               <div class="h-[332px] border-4 border-purple bg-dark p-8 pb-6 text-center">
                 <img src="../assets/Immaterial.svg" alt="Alchemica spending season 1 logo" class="inline-block h-[200px] mb-3" />
                 <div class="text-[32px] leading-8 mb-1">
-                  Mark
+                  Immaterial
                 </div>
                 <div class="text-2xl text-white/50 leading-6">
                   Vision / Coding
