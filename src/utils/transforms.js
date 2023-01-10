@@ -39,10 +39,11 @@ export default {
 
     // Add alchemica spent on tiles by each address
     tiles.forEach((event) => {
-      const fudSpent = Number(utils.formatEther(event.tile.alchemicaCost[0]))
-      const fomoSpent = Number(utils.formatEther(event.tile.alchemicaCost[1]))
-      const alphaSpent = Number(utils.formatEther(event.tile.alchemicaCost[2]))
-      const kekSpent = Number(utils.formatEther(event.tile.alchemicaCost[3]))
+      // Round to 1 decimal place
+      const fudSpent = Math.round(Number(utils.formatEther(event.tile.alchemicaCost[0])) * 10) / 10
+      const fomoSpent = Math.round(Number(utils.formatEther(event.tile.alchemicaCost[1])) * 10) / 10
+      const alphaSpent = Math.round(Number(utils.formatEther(event.tile.alchemicaCost[2])) * 10) / 10
+      const kekSpent = Math.round(Number(utils.formatEther(event.tile.alchemicaCost[3])) * 10) / 10
 
       const eventDateTime = DateTime.fromSeconds(Number(event.timestamp), { zone: 'utc' })
 
@@ -91,10 +92,11 @@ export default {
 
     // Add alchemica spent on installations by each address
     installations.forEach((event) => {
-      const fudSpent = Number(utils.formatEther(event.installationType.alchemicaCost[0]))
-      const fomoSpent = Number(utils.formatEther(event.installationType.alchemicaCost[1]))
-      const alphaSpent = Number(utils.formatEther(event.installationType.alchemicaCost[2]))
-      const kekSpent = Number(utils.formatEther(event.installationType.alchemicaCost[3]))
+      // Round to 1 decimal place
+      const fudSpent = Math.round(Number(utils.formatEther(event.installationType.alchemicaCost[0])) * 10) / 10
+      const fomoSpent = Math.round(Number(utils.formatEther(event.installationType.alchemicaCost[1])) * 10) / 10
+      const alphaSpent = Math.round(Number(utils.formatEther(event.installationType.alchemicaCost[2])) * 10) / 10
+      const kekSpent = Math.round(Number(utils.formatEther(event.installationType.alchemicaCost[3])) * 10) / 10
 
       const eventDateTime = DateTime.fromSeconds(Number(event.timestamp), { zone: 'utc' })
 
@@ -143,18 +145,18 @@ export default {
 
     // Calculate FUD standard spent by each address
     for (const address in addressData) {
-      addressData[address].totalFud = Math.round(addressData[address].installationsSpend.fud + addressData[address].tilesSpend.fud)
-      addressData[address].totalFomo = Math.round(addressData[address].installationsSpend.fomo + addressData[address].tilesSpend.fomo)
-      addressData[address].totalAlpha = Math.round(addressData[address].installationsSpend.alpha + addressData[address].tilesSpend.alpha)
-      addressData[address].totalKek = Math.round(addressData[address].installationsSpend.kek + addressData[address].tilesSpend.kek)
-      addressData[address].fudStandardSpent = Number((addressData[address].totalFud + (addressData[address].totalFomo * 2) + (addressData[address].totalAlpha * 4) + (addressData[address].totalKek * 10)).toFixed(1))
+      addressData[address].totalFud = addressData[address].installationsSpend.fud + addressData[address].tilesSpend.fud
+      addressData[address].totalFomo = addressData[address].installationsSpend.fomo + addressData[address].tilesSpend.fomo
+      addressData[address].totalAlpha = addressData[address].installationsSpend.alpha + addressData[address].tilesSpend.alpha
+      addressData[address].totalKek = addressData[address].installationsSpend.kek + addressData[address].tilesSpend.kek
+      addressData[address].fudStandardSpent = addressData[address].totalFud + (addressData[address].totalFomo * 2) + (addressData[address].totalAlpha * 4) + (addressData[address].totalKek * 10)
 
       // Modified values
-      addressData[address].totalFudModified = Math.round(addressData[address].installationsSpend.fudModified + addressData[address].tilesSpend.fudModified)
-      addressData[address].totalFomoModified = Math.round(addressData[address].installationsSpend.fomoModified + addressData[address].tilesSpend.fomoModified)
-      addressData[address].totalAlphaModified = Math.round(addressData[address].installationsSpend.alphaModified + addressData[address].tilesSpend.alphaModified)
-      addressData[address].totalKekModified = Math.round(addressData[address].installationsSpend.kekModified + addressData[address].tilesSpend.kekModified)
-      addressData[address].fudStandardSpentModified = Number((addressData[address].totalFudModified + (addressData[address].totalFomoModified * 2) + (addressData[address].totalAlphaModified * 4) + (addressData[address].totalKekModified * 10)).toFixed(1))
+      addressData[address].totalFudModified = addressData[address].installationsSpend.fudModified + addressData[address].tilesSpend.fudModified
+      addressData[address].totalFomoModified = addressData[address].installationsSpend.fomoModified + addressData[address].tilesSpend.fomoModified
+      addressData[address].totalAlphaModified = addressData[address].installationsSpend.alphaModified + addressData[address].tilesSpend.alphaModified
+      addressData[address].totalKekModified = addressData[address].installationsSpend.kekModified + addressData[address].tilesSpend.kekModified
+      addressData[address].fudStandardSpentModified = addressData[address].totalFudModified + (addressData[address].totalFomoModified * 2) + (addressData[address].totalAlphaModified * 4) + (addressData[address].totalKekModified * 10)
     }
 
     return addressData

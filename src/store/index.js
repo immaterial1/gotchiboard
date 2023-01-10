@@ -214,10 +214,10 @@ export default new Vuex.Store({
 
       return [...tiles, ...installations].map(x => {
         const type = x.tile ? 'tile' : 'installationType'
-        const costFud = Number(utils.formatEther(x[type].alchemicaCost[0])) * x.quantity
-        const costFomo = Number(utils.formatEther(x[type].alchemicaCost[1])) * x.quantity
-        const costAlpha = Number(utils.formatEther(x[type].alchemicaCost[2])) * x.quantity
-        const costKek = Number(utils.formatEther(x[type].alchemicaCost[3])) * x.quantity
+        const costFud = (Math.round(Number(utils.formatEther(x[type].alchemicaCost[0])) * 10) / 10) * x.quantity
+        const costFomo = (Math.round(Number(utils.formatEther(x[type].alchemicaCost[1])) * 10) / 10) * x.quantity
+        const costAlpha = (Math.round(Number(utils.formatEther(x[type].alchemicaCost[2])) * 10) / 10) * x.quantity
+        const costKek = (Math.round(Number(utils.formatEther(x[type].alchemicaCost[3])) * 10) / 10) * x.quantity
 
         // Figure out multiplier
         const eventDateTime = DateTime.fromSeconds(Number(x.timestamp), { zone: 'utc' })
@@ -226,10 +226,10 @@ export default new Vuex.Store({
           modifier = options.dayModifiers[eventDateTime.weekday - 1]
         }
 
-        const costFudModified = (Number(utils.formatEther(x[type].alchemicaCost[0])) * x.quantity) * modifier
-        const costFomoModified = (Number(utils.formatEther(x[type].alchemicaCost[1])) * x.quantity) * modifier
-        const costAlphaModified = (Number(utils.formatEther(x[type].alchemicaCost[2])) * x.quantity) * modifier
-        const costKekModified = (Number(utils.formatEther(x[type].alchemicaCost[3])) * x.quantity) * modifier
+        const costFudModified = costFud * modifier
+        const costFomoModified = costFomo * modifier
+        const costAlphaModified = costAlpha * modifier
+        const costKekModified = costKek * modifier
 
         return {
           eventId: x.id,
@@ -242,13 +242,13 @@ export default new Vuex.Store({
           costFomo,
           costAlpha,
           costKek,
-          totalFud: Math.round(costFud + (costFomo * 2) + (costAlpha * 4) + (costKek * 10)),
+          totalFud: costFud + (costFomo * 2) + (costAlpha * 4) + (costKek * 10),
           modifier,
           costFudModified,
           costFomoModified,
           costAlphaModified,
           costKekModified,
-          totalFudModified: Math.round(costFudModified + (costFomoModified * 2) + (costAlphaModified * 4) + (costKekModified * 10))
+          totalFudModified: costFudModified + (costFomoModified * 2) + (costAlphaModified * 4) + (costKekModified * 10)
         }
       }).sort((a, b) => b.timestamp - a.timestamp)
     },
