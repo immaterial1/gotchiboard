@@ -57,7 +57,12 @@
           </div>
         </td>
         <td class="py-4 pr-6 text-2xl">
-          <span v-if="rank.address === '-'">-</span>
+          <template v-if="rank.address === '-'">
+            -
+          </template>
+          <template v-else-if="rank.ens">
+            {{ rank.ens.length > 20 ? `${rank.ens.substring(0,17)}...eth` : rank.ens }}
+          </template>
           <div
             v-else
             class="flex items-center">
@@ -68,6 +73,7 @@
               {{ rank.address.substring(2,4) }}...{{ rank.address.substring(rank.address.length -4) }}
             </div>
           </div>
+          <span></span>
         </td>
         <td class="py-4 pr-6 text-xl">{{ showModified ? rank.totalFudModified.toLocaleString() : rank.totalFud.toLocaleString() }}</td>
         <td class="py-4 pr-6 text-xl">{{ showModified ? rank.totalFomoModified.toLocaleString() : rank.totalFomo.toLocaleString() }}</td>

@@ -12,7 +12,7 @@
           #{{ rank }}
         </div>
         <div class="text-2xl leading-6 mb-2">
-          {{ data.address }}
+          {{ address }}
         </div>
         <div class="flex">
           <div class="flex items-center mr-6">
@@ -62,6 +62,9 @@ export default {
     ghstPrize: Number
   },
   computed: {
+    address () {
+      return this.data.ens ? this.data.ens.length > 20 ? `${this.data.ens.substring(0, 17)}...eth` : this.data.ens : this.data.address
+    },
     totalFud () {
       return this.showModified ? this.data.totalFudModified.toLocaleString() : this.data.totalFud.toLocaleString()
     },
