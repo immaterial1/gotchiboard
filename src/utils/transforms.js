@@ -159,6 +159,46 @@ export default {
       addressData[address].fudStandardSpentModified = addressData[address].totalFudModified + (addressData[address].totalFomoModified * 2) + (addressData[address].totalAlphaModified * 4) + (addressData[address].totalKekModified * 10)
     }
 
+    const ensNames = await subgraph.getENS(Object.keys(addressData))
+
+    ensNames.forEach(x => {
+      if (addressData[x.owner.id]) {
+        addressData[x.owner.id].ens = x.name
+      }
+    })
+
     return addressData
+  },
+  competitionAlchemicaData: {
+    1: [
+      {
+        timeFrom: 1673827200,
+        timePeriod: 'week',
+        dayModifiers: [1.6, 1.5, 1.4, 1.3, 1.2, 1.1, 1],
+        ghstPayouts: [4860, 2880, 1800, 1440, 1260, 882, 702, 522, 432, 342, 342, 342, 342, 342, 342, 234, 234, 234, 234, 234, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        data: {}
+      },
+      {
+        timeFrom: 1674432000,
+        timePeriod: 'week',
+        dayModifiers: [1, 1, 1, 1, 1, 1, 1],
+        ghstPayouts: [4860, 2880, 1800, 1440, 1260, 882, 702, 522, 432, 342, 342, 342, 342, 342, 342, 234, 234, 234, 234, 234, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        data: {}
+      },
+      {
+        timeFrom: 1675036800,
+        timePeriod: 'week',
+        dayModifiers: [1, 1.1, 1.2, 1.3, 1.2, 1.1, 1],
+        ghstPayouts: [4860, 2880, 1800, 1440, 1260, 882, 702, 522, 432, 342, 342, 342, 342, 342, 342, 234, 234, 234, 234, 234, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        data: {}
+      },
+      {
+        timeFrom: 1675641600,
+        timePeriod: 'week',
+        dayModifiers: [1.3, 1.2, 1.1, 1, 1.1, 1.2, 1.3],
+        ghstPayouts: [4860, 2880, 1800, 1440, 1260, 882, 702, 522, 432, 342, 342, 342, 342, 342, 342, 234, 234, 234, 234, 234, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        data: {}
+      }
+    ]
   }
 }
