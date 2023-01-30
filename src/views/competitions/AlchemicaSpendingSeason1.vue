@@ -197,7 +197,7 @@ export default {
       loading: true,
       showRules: false,
       season: 1,
-      round: 1,
+      round: parseInt(this.$route.query.round) || 1,
       showModified: true,
       shownPlaces: 50
     }
