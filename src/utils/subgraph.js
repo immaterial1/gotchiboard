@@ -75,6 +75,22 @@ const mintInstallationEvents = async (timeFrom, timeTo, owner) => {
   return results
 }
 
+const getItemSpending = async (timeFrom, timeTo, owner) => {
+  const params = {}
+  if (timeFrom) params.startTime = timeFrom * 1000
+  if (timeTo) params.endTime = timeTo * 1000
+  if (owner) params.address = owner
+  let results = []
+
+  const response = await axios.get('https://api.gotchiverse.io/realm/item-store/purchases', { params })
+
+  if (response?.data?.purchases.length) {
+    results = response.data.purchases
+  }
+
+  return results
+}
+
 const getENS = async (accounts) => {
   accounts = accounts?.length ? accounts.map((val) => `"${val}"`) : []
   let results = []
@@ -119,5 +135,6 @@ const getENS = async (accounts) => {
 export default {
   mintTileEvents,
   mintInstallationEvents,
+  getItemSpending,
   getENS
 }

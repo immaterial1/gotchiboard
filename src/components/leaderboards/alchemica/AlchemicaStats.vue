@@ -24,6 +24,17 @@
             {{ Number(totalSpend).toLocaleString() }}
           </div>
         </div>
+        <div v-if="stats.itemsMinted !== undefined" class="text-center">
+          <div class="mb-2">
+            <img class="inline-block w-8 h-8" src="../../../assets/shop.svg" alt="shop icon">
+          </div>
+          <div class="text-2xl leading-6">
+            Items used
+          </div>
+          <div class="text-3xl leading-8 -mt-0.5">
+            {{  Number(stats.itemsMinted).toLocaleString() }}
+          </div>
+        </div>
         <div v-if="stats.tilesMinted !== undefined" class="text-center">
           <div class="mb-2">
             <img class="inline-block w-8 h-8" src="../../../assets/tile.svg" alt="tile icon">
