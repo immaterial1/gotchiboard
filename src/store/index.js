@@ -227,10 +227,10 @@ export default new Vuex.Store({
       })
 
       const itemsFormatted = items.map(x => {
-        const costFud = x.cost.FUD * x.quantity
-        const costFomo = x.cost.FOMO * x.quantity
-        const costAlpha = x.cost.ALPHA * x.quantity
-        const costKek = x.cost.KEK * x.quantity
+        const costFud = (x.cost.FUD || 0) * x.quantity
+        const costFomo = (x.cost.FOMO || 0) * x.quantity
+        const costAlpha = (x.cost.ALPHA || 0) * x.quantity
+        const costKek = (x.cost.KEK || 0) * x.quantity
 
         // Figure out multipliers
         const eventDateTime = DateTime.fromSeconds(Number(x.timestamp), { zone: 'utc' })
