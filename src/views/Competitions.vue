@@ -15,11 +15,21 @@
         <div class="flex -mx-3">
           <div class="w-1/3 px-3">
             <IndexTile
-              :active="true"
+              :active="false"
               :title="'Alchemica Spending Season 1'"
+              :img="'comp1-blue.png'"
               :date="'January 16th 2023'"
               :prizepool="80000"
               @click.native="$router.push('/competitions/alch-spending-season-1')"/>
+          </div>
+          <div class="w-1/3 px-3">
+            <IndexTile
+              :active="true"
+              :title="'Alchemica Spending Season 2'"
+              :img="'comp1-gold.png'"
+              :date="'May 1st 2023'"
+              :prizepool="80000"
+              @click.native="$router.push('/competitions/alch-spending-season-2')"/>
           </div>
         </div>
       </div>

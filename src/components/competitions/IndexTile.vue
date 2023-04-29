@@ -5,7 +5,7 @@
         v-if="active"
         class="absolute top-0 left-0 h-6 w-14 bg-purple text-center text-white text-lg leading-6">Active</div>
       <div class="h-40 w-56 flex items-center justify-center mx-auto">
-        <img src="../../assets/comp1-blue.png" alt="Alchemica spending season 1 logo" class="max-h-full max-w-full inline-block mb-2" />
+        <img :src="img" alt="Alchemica spending season 1 logo" class="max-h-full max-w-full inline-block mb-2" />
       </div>
       <div class="text-[32px] leading-8 mb-1">
         {{ title }}
@@ -32,6 +32,7 @@ export default {
     active: Boolean,
     title: String,
     date: String,
+    img: String,
     prizepool: [String, Number]
   }
 }

@@ -178,10 +178,13 @@ export default new Vuex.Store({
       // If timeTo is in the future set to now
       if (timeTo > DateTime.utc().toSeconds()) timeTo = Math.round(DateTime.now().toSeconds())
 
-      const tiles = await subgraph.mintTileEvents(timeFrom, timeTo, options.owner)
-      const installations = await subgraph.mintInstallationEvents(timeFrom, timeTo, options.owner)
+      const [tiles, installations, items] = await Promise.all([
+        subgraph.mintTileEvents(timeFrom, timeTo, options.owner),
+        subgraph.mintInstallationEvents(timeFrom, timeTo, options.owner),
+        subgraph.getItemSpending(timeFrom, timeTo, options.owner)
+      ])
 
-      return [...tiles, ...installations].map(x => {
+      const tilesAndInstallationsFormatted = [...tiles, ...installations].map(x => {
         const type = x.tile ? 'tile' : 'installationType'
         const costFud = (Math.round(Number(utils.formatEther(x[type].alchemicaCost[0])) * 10) / 10) * x.quantity
         const costFomo = (Math.round(Number(utils.formatEther(x[type].alchemicaCost[1])) * 10) / 10) * x.quantity
@@ -194,11 +197,13 @@ export default new Vuex.Store({
         if (options.dayModifiers) {
           modifier = options.dayModifiers[eventDateTime.weekday - 1]
         }
+        let tokenModifiers = { fud: 1, fomo: 1, alpha: 1, kek: 1 }
+        if (options.tokenModifiers) tokenModifiers = options.tokenModifiers
 
-        const costFudModified = costFud * modifier
-        const costFomoModified = costFomo * modifier
-        const costAlphaModified = costAlpha * modifier
-        const costKekModified = costKek * modifier
+        const costFudModified = costFud * modifier * tokenModifiers.fud
+        const costFomoModified = costFomo * modifier * tokenModifiers.fomo
+        const costAlphaModified = costAlpha * modifier * tokenModifiers.alpha
+        const costKekModified = costKek * modifier * tokenModifiers.kek
 
         return {
           eventId: x.id,
@@ -219,7 +224,50 @@ export default new Vuex.Store({
           costKekModified,
           totalFudModified: costFudModified + (costFomoModified * 2) + (costAlphaModified * 4) + (costKekModified * 10)
         }
-      }).sort((a, b) => b.timestamp - a.timestamp)
+      })
+
+      const itemsFormatted = items.map(x => {
+        const costFud = x.cost.FUD * x.quantity
+        const costFomo = x.cost.FOMO * x.quantity
+        const costAlpha = x.cost.ALPHA * x.quantity
+        const costKek = x.cost.KEK * x.quantity
+
+        // Figure out multipliers
+        const eventDateTime = DateTime.fromSeconds(Number(x.timestamp), { zone: 'utc' })
+        let modifier = 1
+        if (options.dayModifiers) {
+          modifier = options.dayModifiers[eventDateTime.weekday - 1]
+        }
+        let tokenModifiers = { fud: 1, fomo: 1, alpha: 1, kek: 1 }
+        if (options.tokenModifiers) tokenModifiers = options.tokenModifiers
+
+        const costFudModified = costFud * modifier * tokenModifiers.fud
+        const costFomoModified = costFomo * modifier * tokenModifiers.fomo
+        const costAlphaModified = costAlpha * modifier * tokenModifiers.alpha
+        const costKekModified = costKek * modifier * tokenModifiers.kek
+
+        return {
+          eventId: x.timestamp,
+          timestamp: Math.round(x.timestamp / 1000),
+          quantity: x.quantity,
+          id: x.item.id,
+          name: x.item.label,
+          type: 'item',
+          costFud,
+          costFomo,
+          costAlpha,
+          costKek,
+          totalFud: costFud + (costFomo * 2) + (costAlpha * 4) + (costKek * 10),
+          modifier,
+          costFudModified,
+          costFomoModified,
+          costAlphaModified,
+          costKekModified,
+          totalFudModified: costFudModified + (costFomoModified * 2) + (costAlphaModified * 4) + (costKekModified * 10)
+        }
+      })
+
+      return [...tilesAndInstallationsFormatted, ...itemsFormatted].sort((a, b) => b.timestamp - a.timestamp)
     },
     async getCompetitionAddressAlchemicaSpend (context, options) {
       if (!options.season) throw new Error('options.season parameter missing')

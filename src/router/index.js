@@ -10,6 +10,8 @@ import ParcelLeaderboard from '../views/leaderboards/Parcel.vue'
 import GltrLeaderboard from '../views/leaderboards/Gltr.vue'
 import AlchemicaSpendingSeason1 from '../views/competitions/AlchemicaSpendingSeason1'
 import AlchemicaSpendingSeason1Address from '../views/competitions/AlchemicaSpendingSeason1Address'
+import AlchemicaSpendingSeason2 from '../views/competitions/AlchemicaSpendingSeason2'
+import AlchemicaSpendingSeason2Address from '../views/competitions/AlchemicaSpendingSeason2Address'
 
 Vue.use(VueRouter)
 
@@ -65,6 +67,16 @@ const routes = [
     path: '/competitions/alch-spending-season-1/:address',
     name: 'AlchemicaSpendingSeason1Address',
     component: AlchemicaSpendingSeason1Address
+  },
+  {
+    path: '/competitions/alch-spending-season-2',
+    name: 'AlchemicaSpendingSeason2',
+    component: AlchemicaSpendingSeason2
+  },
+  {
+    path: '/competitions/alch-spending-season-2/:address',
+    name: 'AlchemicaSpendingSeason2Address',
+    component: AlchemicaSpendingSeason2Address
   },
   {
     path: '/about',
