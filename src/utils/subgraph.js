@@ -76,7 +76,9 @@ const mintInstallationEvents = async (timeFrom, timeTo, owner) => {
 }
 
 const getItemSpending = async (timeFrom, timeTo, owner) => {
-  const params = {}
+  const params = {
+    used: true
+  }
   if (timeFrom) params.startTime = timeFrom * 1000
   if (timeTo) params.endTime = timeTo * 1000
   if (owner) params.address = owner
