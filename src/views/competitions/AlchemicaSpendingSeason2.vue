@@ -35,7 +35,7 @@
           </div>
           <div v-if="showRules" class="mt-8 text-2xl">
             <p class="mb-4">
-              Welcome frens, to the first Alchemica spending competition!
+              Welcome frens, to the second Alchemica spending competition!
               <br />
               Climb the leaderboard by spending Alchemica in the Gotchiverse to win GHST prizes.
             </p>
