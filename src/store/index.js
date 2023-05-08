@@ -248,7 +248,7 @@ export default new Vuex.Store({
 
         return {
           eventId: x.timestamp,
-          timestamp: Math.round(x.timestamp / 1000),
+          timestamp: x.timestamp,
           quantity: x.quantity,
           id: x.item.id,
           name: x.item.label,

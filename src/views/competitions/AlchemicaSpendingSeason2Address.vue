@@ -84,7 +84,7 @@ export default {
     return {
       loading: true,
       season: 2,
-      round: 1,
+      round: Number(this.$route.query.round) || 1,
       showModified: true,
       data: null,
       shownPlaces: 50
