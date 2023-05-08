@@ -77,6 +77,7 @@ export default new Vuex.Store({
       const numOfAddresses = getters.competitionAlchemica(season, round).length
       let tilesMinted = 0
       let installationsMinted = 0
+      let itemsMinted = 0
       let totalFud = 0
       let totalFomo = 0
       let totalAlpha = 0
@@ -89,6 +90,7 @@ export default new Vuex.Store({
       getters.competitionAlchemica(season, round).forEach(address => {
         tilesMinted += address.tilesMinted
         installationsMinted += address.installationsMinted
+        itemsMinted += address.itemsMinted
         totalFud += address.totalFud
         totalFomo += address.totalFomo
         totalAlpha += address.totalAlpha
@@ -103,6 +105,7 @@ export default new Vuex.Store({
         numOfAddresses,
         tilesMinted,
         installationsMinted,
+        itemsMinted,
         totalFud,
         totalFomo,
         totalAlpha,
