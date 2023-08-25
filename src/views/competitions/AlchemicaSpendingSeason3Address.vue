@@ -182,7 +182,7 @@ export default {
     viewAddress (address) {
       if (address) {
         this.$router.push({
-          path: `/competitions/alch-spending-season-1/${address}`,
+          path: `/competitions/alch-spending-season-3/${address}`,
           query: {
             round: this.round
           }
