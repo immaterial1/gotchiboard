@@ -253,13 +253,17 @@ export default {
       addressData[address].fudStandardSpentModified = addressData[address].totalFudModified + (addressData[address].totalFomoModified * 2) + (addressData[address].totalAlphaModified * 4) + (addressData[address].totalKekModified * 10)
     }
 
-    const ensNames = await subgraph.getENS(Object.keys(addressData))
+    try {
+      const ensNames = await subgraph.getENS(Object.keys(addressData))
 
-    ensNames.forEach(x => {
-      if (addressData[x.owner.id]) {
-        addressData[x.owner.id].ens = x.name
-      }
-    })
+      ensNames.forEach(x => {
+        if (addressData[x.owner.id]) {
+          addressData[x.owner.id].ens = x.name
+        }
+      })
+    } catch (e) {
+      console.error('Failed to get ENS names', e)
+    }
 
     return addressData
   },
