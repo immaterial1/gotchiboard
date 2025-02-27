@@ -5,7 +5,7 @@ const mintTileEvents = async (timeFrom, timeTo, owner) => {
   let numOfResults = 0
   let lastId = ''
   do {
-    const response = await axios.post('https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic', JSON.stringify({
+    const response = await axios.post('https://subgraph.satsuma-prod.com/tWYl5n5y04oz/aavegotchi/gotchiverse-matic/api', JSON.stringify({
       query: `{
         mintTileEvents(first: 1000, where: {${timeFrom ? `timestamp_gt:${timeFrom}, ` : ''}${timeTo ? `timestamp_lt:${timeTo}, ` : ''}${owner ? `owner:"${owner}", ` : ''}id_gt: "${lastId}"}) {
           id
@@ -42,7 +42,7 @@ const mintInstallationEvents = async (timeFrom, timeTo, owner) => {
   let numOfResults = 0
   let lastId = ''
   do {
-    const response = await axios.post('https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic', JSON.stringify({
+    const response = await axios.post('https://subgraph.satsuma-prod.com/tWYl5n5y04oz/aavegotchi/gotchiverse-matic/api', JSON.stringify({
       query: `{
         mintInstallationEvents(first: 1000, where: {${timeFrom ? `timestamp_gt:${timeFrom}, ` : ''}${timeTo ? `timestamp_lt:${timeTo}, ` : ''}${owner ? `owner:"${owner}", ` : ''}id_gt: "${lastId}"}) {
           id
